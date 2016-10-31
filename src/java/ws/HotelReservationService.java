@@ -33,5 +33,13 @@ public class HotelReservationService {
         return hotelReservations;
         
     }
+
+    /**
+     * Web service operation
+     */
+    public String operation() {
+        //TODO write your implementation code here:
+        return null;
+    }
     
 }

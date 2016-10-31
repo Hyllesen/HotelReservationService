@@ -2,24 +2,45 @@
 <definitions name="HotelReservationWSDL" targetNamespace="http://ws.hotelreservation"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.hotelreservation" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.hotelreservation" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types>
         <xsd:schema targetNamespace="http://ws.hotelreservation" xmlns:tns="http://ws.hotelreservation">
             <xsd:complexType name="hotelreservations">
                 <xsd:sequence maxOccurs="unbounded">
-                    <xsd:element name="name1" type="xsd:string"></xsd:element>
-                    <xsd:element name="address" type="xsd:string"></xsd:element>
-                    <xsd:element name="bookingnumber" type="xsd:string"></xsd:element>
-                    <xsd:element name="priceofstay" type="xsd:double"></xsd:element>
-                    <xsd:element name="iscreditcardguaranteeeneeded" type="xsd:boolean"></xsd:element>
-                    <xsd:element name="nameofreservationservice" type="xsd:string"></xsd:element>
+                    <xsd:element name="hotelreservation">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="nameofreservationservice" type="xsd:string"></xsd:element>
+                                <xsd:element name="iscreditcardguaranteeeneeded" type="xsd:boolean"></xsd:element>
+                                <xsd:element name="priceofstay" type="xsd:double"></xsd:element>
+                                <xsd:element name="bookingnumber" type="xsd:string"></xsd:element>
+                                <xsd:element name="address" type="xsd:string"></xsd:element>
+                                <xsd:element name="name" type="xsd:string"></xsd:element>
+                                <xsd:element name="city" type="xsd:string"></xsd:element>
+                                <xsd:element name="arrivaldate" type="xsd:string"></xsd:element>
+                                <xsd:element name="departuredate" type="xsd:string"></xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="reservationrequest">
                 <xsd:sequence>
-                    <xsd:element name="city" type="xsd:string"></xsd:element>
-                    <xsd:element name="arrivaldate" type="xsd:string"></xsd:element>
-                    <xsd:element name="departuredate" type="xsd:string"></xsd:element>
+                    <xsd:element name="hotelreservation">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="nameofreservationservice" type="xsd:string"></xsd:element>
+                                <xsd:element name="iscreditcardguaranteeeneeded" type="xsd:boolean"></xsd:element>
+                                <xsd:element name="priceofstay" type="xsd:double"></xsd:element>
+                                <xsd:element name="bookingnumber" type="xsd:string"></xsd:element>
+                                <xsd:element name="address" type="xsd:string"></xsd:element>
+                                <xsd:element name="name" type="xsd:string"></xsd:element>
+                                <xsd:element name="city" type="xsd:string"></xsd:element>
+                                <xsd:element name="arrivaldate" type="xsd:string"></xsd:element>
+                                <xsd:element name="departuredate" type="xsd:string"></xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="request" type="tns:reservationrequest"></xsd:element>
@@ -38,7 +59,30 @@
             <output name="output1" message="tns:HotelReservationWSDLOperationResponse"/>
         </operation>
     </portType>
+    <binding name="HotelReservationWSDLPortTypeBinding" type="tns:HotelReservationWSDLPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getHotels">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HotelReservationWSDLService">
+        <port name="HotelReservationWSDLPortTypeBindingPort" binding="tns:HotelReservationWSDLPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+        </port>
+    </service>
     <plnk:partnerLinkType name="HotelReservationWSDL">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="HotelReservationWSDLPortTypeRole" portType="tns:HotelReservationWSDLPortType"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="HotelReservationWSDL2">
         <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
 In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
 A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
